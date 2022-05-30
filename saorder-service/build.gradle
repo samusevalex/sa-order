@@ -1,0 +1,36 @@
+plugins {
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+    id 'java'
+}
+
+springBoot {
+    buildInfo()
+}
+
+group = 'ru.iteco'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(":saorder-api")
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'net.rakugakibox.spring.boot:orika-spring-boot-starter:1.9.0'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'ru.iteco:auth-lib:0.4.0'
+    implementation 'ru.iteco:auth-api:0.4.0'
+    implementation 'org.liquibase:liquibase-core'
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+    runtimeOnly 'org.postgresql:postgresql'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
+}

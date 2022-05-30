@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="init_1" author="Samusev Alexey">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="orders"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="orders" remarks="Таблица заказов">
+            <column name="id" type="bigserial" remarks="Уникальный идентификатор номера заказа">
+                <constraints primaryKey="true" primaryKeyName="order_pk" nullable="false"/>
+            </column>
+
+            <column name="create_at" type="timestamp" remarks="Дата заказа">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="create_user" type="varchar(255)" remarks="Пользователь создавший заказ">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_modify_at" type="timestamp" remarks="Дата изменения заказа">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_modify_user" type="varchar(255)" remarks="Пользователь изменивший заказ">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="complete_at" type="date" remarks="Дата исполнения">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="status" type="varchar(20)" remarks="Статус заказа">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="client_id" type="uuid" remarks="Идентификатор клиента">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="contract_id" type="uuid" remarks="Идентификатор договора">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="employee_id" type="bigint" remarks="Идентификатор сотрудника">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+        <comment>Задача по созданию организации</comment>
+    </changeSet>
+
+    <changeSet id="init_2" author="Samusev Alexey">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="order_features"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="order_features" remarks="Таблица для List фич">
+            <column name="order_id" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="features_pk" nullable="false"/>
+            </column>
+
+            <column name="feature" type="bigint">
+                <constraints primaryKey="true" primaryKeyName="features_pk" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

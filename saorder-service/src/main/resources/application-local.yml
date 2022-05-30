@@ -1,0 +1,13 @@
+server:
+  port: ${APP_PORT:8080}
+  servlet:
+    application-display-name: Orders
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db_orders
+    username: postgres
+    password: postgres
+
+jwt:
+  secret: "XLzj0GKQeztNeeoWSaePQlVSzgSJeeGZ"

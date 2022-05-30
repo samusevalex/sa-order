@@ -1,0 +1,57 @@
+server:
+  port: ${APP_PORT:8080}
+  servlet:
+    session:
+      cookie:
+        http-only: true
+    application-display-name: Orders
+  tomcat:
+    max-connections: 1000
+    accept-count: 100
+    connection-timeout: 30000
+
+spring:
+  profiles:
+    group:
+      local: local, swagger
+      openshift: openshift, swagger
+  application:
+    name: Orders
+  jackson:
+    default-property-inclusion: NON_NULL
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 10
+      schema: OrderService
+      connection-init-sql: CREATE SCHEMA IF NOT EXISTS "OrderService";
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate.temp.use_jdbc_metadata_defaults: false
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+      hbm2ddl:
+        auto: none
+      format_sql: true
+  liquibase:
+    enabled: true
+    default-schema: OrderService
+    liquibase-schema: OrderService
+    change-log: classpath:db/changelog/changelog-master.xml
+
+logging:
+  level:
+    ROOT: INFO
+    ru.iteco: DEBUG
+    org.springframework: INFO
+
+swagger:
+  title: Проект по домашнему заданию
+  description: API для проекта по домашнему заданию
+  contract:
+    mail: a.samusev@iteco-inno.ru
+    name: Самусев Алексей
